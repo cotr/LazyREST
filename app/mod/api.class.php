@@ -344,7 +344,7 @@ class apiMod extends appMod
 		$password = z(t(v($token_password_field)));
 		$token_table_name  = z(t($token_table_name)); 
 		
-		$sql = "SELECT * FROM `" . s( $token_table_name ) . "` WHERE `" . s($token_account_field) . "` = '" . s( $account ) . "' AND `" . s($token_password_field) . "` = '" . md5( $password ) . "' LIMIT 1";
+		$sql = "SELECT * FROM `" . s( $token_table_name ) . "` WHERE `" . s($token_account_field) . "` = '" . s( $account ) . "' AND `" . s($token_password_field) . "` = '" . md5( md5( $account ) . md5( $password ) . 'SALTHERE' ) . "' LIMIT 1";
 		
 		if( $user = get_line( $sql ) )
 		{
